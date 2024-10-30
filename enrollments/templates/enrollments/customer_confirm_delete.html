@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="bg-white rounded-lg shadow p-6">
+  <h1 class="text-2xl font-bold mb-6">Confirm Delete</h1>
+
+  <p class="mb-4">
+    Are you sure you want to delete the customer
+    <strong>{{ customer.full_name }}</strong>?
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="flex space-x-4">
+      <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">
+        Confirm Delete
+      </button>
+      <a
+        href="{% url 'dashboard' %}"
+        class="bg-gray-300 text-black px-4 py-2 rounded"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}

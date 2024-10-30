@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% block content %}
+<div class="bg-white rounded-lg shadow p-6">
+  <h1 class="text-2xl font-bold mb-6">Customer Dashboard</h1>
+
+  <form action="{% url 'search_customers' %}" method="get" class="mb-6">
+    <input
+      type="text"
+      name="q"
+      placeholder="Search customers..."
+      class="px-4 py-2 border rounded"
+    />
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+      Search
+    </button>
+  </form>
+
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th class="text-left py-2">Name</th>
+        <th class="text-left py-2">Email</th>
+        <th class="text-left py-2">SEP Start</th>
+        <th class="text-left py-2">SEP End</th>
+        <th class="text-left py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customers %}
+      <tr>
+        <td class="py-2">{{ customer.full_name }}</td>
+        <td class="py-2">{{ customer.email }}</td>
+        <td class="py-2">{{ customer.sep_start_date }}</td>
+        <td class="py-2">{{ customer.sep_end_date }}</td>
+        <td class="py-2">
+          <!-- Here you can add buttons for actions when they are functional -->
+          <a
+            href="{% url 'customer_update' customer.pk %}"
+            class="text-blue-500"
+            >Edit</a
+          >
+          <a href="{% url 'customer_delete' customer.pk %}" class="text-red-500"
+            >Delete</a
+          >
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center py-2">No customers found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
